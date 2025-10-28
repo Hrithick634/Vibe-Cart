@@ -35,3 +35,19 @@ It provides product listings, secure authentication, and an intuitive owner dash
 
 ## 🗂️ Folder Structure
 
+CarryHub/ │ ├── config/ # Database & configuration files ├── controllers/ # Business logic and API handling ├── middlewares/ # Auth and other middleware ├── models/ # Mongoose schemas ├── routes/ # Express routes ├── public/ # Static files ├── utils/ # Helper functions ├── views/ # Frontend views or templates ├── app.js # Main application file └── .env # Environment variables (ignored in Git)
+
+Setup
+Clone the Repository
+
+git clone https://github.com/Hrithick634/Vibe-Cart.git
+cd CarryHub
+Install Dependencies
+
+npm install
+Configure Environment Variables
+
+Start the Server
+
+node app.js
+http://localhost:3000
