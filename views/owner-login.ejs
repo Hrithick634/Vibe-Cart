@@ -1,0 +1,51 @@
+<%- include('partials/header') %>
+
+<!-- 🌈 Admin Login Page -->
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-blue-50 px-6 py-10">
+
+  <!-- 🧳 Admin Login Card -->
+  <div class="w-full max-w-md bg-white shadow-2xl rounded-2xl p-8 border border-gray-100">
+    <div class="text-center mb-8">
+      <h3 class="text-3xl font-bold text-gray-800">
+        Admin <span class="text-blue-500">Access</span>
+      </h3>
+      <p class="text-gray-500 mt-2 text-sm">Sign in to manage <span class="font-semibold text-blue-500">Scatch</span></p>
+    </div>
+
+    <!-- 🔐 Login Form -->
+    <form action="/create" method="post" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-600 mb-1">Email</label>
+        <input
+          class="bg-gray-50 w-full px-4 py-3 border rounded-lg border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none"
+          type="email"
+          placeholder="admin@example.com"
+          name="email"
+          required>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-600 mb-1">Password</label>
+        <input
+          class="bg-gray-50 w-full px-4 py-3 border rounded-lg border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none"
+          type="password"
+          placeholder="••••••••"
+          name="password"
+          required>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full py-3 mt-3 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-semibold hover:opacity-90 transition">
+        Login as Admin
+      </button>
+    </form>
+
+    <!-- 🕶️ Extra Section -->
+    <div class="mt-6 text-center text-sm text-gray-500">
+      <p>Back to <a href="/" class="text-blue-500 hover:underline font-medium">Home</a></p>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

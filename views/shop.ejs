@@ -1,0 +1,89 @@
+<%- include('partials/header') %>
+
+<% if (success && success.length > 0) { %> 
+  <div class="fixed top-5 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg animate-fadeIn z-50">
+    <%= success %>
+  </div>
+<% } %>
+
+<div class="min-h-screen flex flex-col md:flex-row bg-gradient-to-br from-gray-50 to-white">
+  
+  <!-- Sidebar -->
+  <aside class="w-full md:w-1/4 bg-white shadow-md p-6 md:sticky top-0 h-auto md:h-screen flex flex-col gap-8">
+    
+    <!-- Sort -->
+    <div>
+      <h3 class="text-lg font-semibold mb-3 text-gray-700 flex items-center gap-2">
+        <i class="ri-filter-line text-blue-600"></i> Sort by
+      </h3>
+      <form action="/shop" method="GET" class="flex gap-2">
+        <select name="sortby" class="border border-gray-300 rounded-lg px-3 py-2 text-sm w-full focus:ring-2 focus:ring-blue-400 outline-none">
+          <option value="popular">Popular</option>
+          <option value="newest">Newest</option>
+        </select>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-all">
+          Sort
+        </button>
+      </form>
+    </div>
+
+    <!-- Collections -->
+    <div>
+      <h3 class="text-lg font-semibold mb-3 text-gray-700 flex items-center gap-2">
+        <i class="ri-shopping-bag-3-line text-blue-600"></i> Collections
+      </h3>
+      <nav class="flex flex-col space-y-2 text-gray-600 font-medium">
+        <a href="/newcollection" class="hover:text-blue-600 transition-colors">🆕 New Collection</a>
+        <a href="/allproducts" class="hover:text-blue-600 transition-colors">🛍️ All Products</a>
+        <a href="/discountedproducts" class="hover:text-blue-600 transition-colors">💸 Discounted Products</a>
+      </nav>
+    </div>
+
+    <!-- Filters -->
+    <div>
+      <h3 class="text-lg font-semibold mb-3 text-gray-700 flex items-center gap-2">
+        <i class="ri-equalizer-line text-blue-600"></i> Filters
+      </h3>
+      <nav class="flex flex-col space-y-2 text-gray-600 font-medium">
+        <a href="/availability" class="hover:text-blue-600 transition-colors">✅ Availability</a>
+        <a href="/discountedproducts" class="hover:text-blue-600 transition-colors">🏷️ Discount</a>
+        <a href="/shop/popular" class="hover:text-blue-600 transition-colors">🔄 Reset Filters</a>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Products Section -->
+  <main class="w-full md:w-3/4 p-6 flex flex-col gap-8 overflow-auto">
+    <h2 class="text-3xl font-bold text-gray-800 mb-4">👜 Explore Our Collection</h2>
+    
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+      <% products.forEach(function(product) { %>
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+          <div class="w-full h-52 flex items-center justify-center bg-[<%= product.bgcolor || '#f3f4f6' %>]">
+            <img class="h-44 object-contain transition-transform duration-300 hover:scale-110" src="data:image/jpeg;base64,<%= product.image.toString('base64') %>" alt="Product Image">
+          </div>
+          <div class="p-4 flex justify-between items-center">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800"><%= product.name %></h3>
+              <h4 class="text-gray-600 font-medium">₹ <%= product.price %></h4>
+            </div>
+            <a href="/addtocart/<%= product._id %>" class="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition-all">
+              <i class="ri-add-line text-lg"></i>
+            </a>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </main>
+</div>
+
+<%- include('partials/footer') %>
+
+<!-- Tailwind Animations -->
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fadeIn { animation: fadeIn 0.4s ease-in-out; }
+</style>

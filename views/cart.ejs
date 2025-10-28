@@ -1,0 +1,87 @@
+<%- include('partials/header') %>
+
+<div class="w-full min-h-screen px-5 sm:px-10 md:px-20 py-10 bg-gray-50">
+  
+  <% let totalAmount = 0; %> 
+
+  <!-- 🛒 Cart Items -->
+  <div class="flex flex-col lg:flex-row gap-10">
+    
+    <!-- ✅ Cart Products -->
+    <div class="flex-1 flex flex-wrap justify-center gap-8" id="cart-container">
+      <% user.cart.forEach(function(item) { 
+          let bill = (Number(item.price) + 20) - Number(item.discount);
+          totalAmount += bill;
+      %>
+      
+      <div class="w-full sm:w-[45%] md:w-[30%] lg:w-[22%] bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-transform transform hover:-translate-y-1 duration-300 border border-gray-200 cart-item" data-id="<%= item.id %>">
+        
+        <!-- Product Image -->
+        <div class="w-full bg-[<%= item.bgcolor %>] flex justify-center items-center p-5">
+          <img 
+            class="h-[12rem] object-contain mix-blend-multiply" 
+            src="data:image/jpeg;base64,<%= item.image.toString('base64') %>" 
+            alt="Product Image"
+          >
+        </div>
+
+        <!-- Product Info -->
+        <div class="w-full flex justify-between items-center px-5 py-4 bg-[<%= item.panelcolor %>] text-gray-800">
+          <h3 class="text-lg font-semibold truncate"><%= item.name %></h3>
+          <div class="flex items-center gap-2">
+            <i class="ri-add-line add-btn w-8 h-8 bg-white text-gray-700 rounded-full flex items-center justify-center shadow cursor-pointer hover:bg-gray-100" data-id="<%= item.id %>"></i>
+            <div class="px-3 py-1 bg-white rounded-md text-gray-800 font-medium quantity" data-id="<%= item.id %>">1</div>
+            <i class="ri-subtract-line remove-btn w-8 h-8 bg-white text-gray-700 rounded-full flex items-center justify-center shadow cursor-pointer hover:bg-gray-100" data-id="<%= item.id %>"></i>
+          </div>
+        </div>
+
+        <!-- Price Row -->
+        <div class="flex justify-between items-center px-5 py-3 bg-[<%= item.textcolor %>] text-white">
+          <span class="text-base font-medium">Net Total</span>
+          <span class="text-lg font-bold bill-amount" data-id="<%= item.id %>">₹ <%= bill %></span>
+        </div>
+
+      </div>
+      <% }); %>
+    </div>
+
+    <!-- 💰 Price Breakdown -->
+    <div class="lg:w-[35%] bg-white rounded-2xl shadow-md h-fit p-8 border border-gray-200">
+      <h3 class="text-2xl font-bold text-gray-700 border-b pb-3 mb-5">Price Breakdown</h3>
+      
+      <div class="space-y-3 text-gray-700 text-lg">
+        <div class="flex justify-between">
+          <span>Total MRP</span>
+          <span id="total-mrp">₹ <%= user.cart.reduce((sum, item) => sum + Number(item.price), 0) %></span>
+        </div>
+        <div class="flex justify-between">
+          <span>Discount on MRP</span>
+          <span id="total-discount" class="text-green-600">- ₹ <%= user.cart.reduce((sum, item) => sum + Number(item.discount), 0) %></span>
+        </div>
+        <div class="flex justify-between">
+          <span>Platform Fee</span>
+          <span id="platform-fee">₹ <%= user.cart.length * 20 %></span>
+        </div>
+        <div class="flex justify-between">
+          <span>Shipping Fee</span>
+          <span class="text-green-600">FREE</span>
+        </div>
+      </div>
+
+      <div class="w-full h-[1px] bg-gray-300 my-6"></div>
+
+      <div class="flex justify-between items-center text-xl font-semibold">
+        <span>Total Amount</span>
+        <span id="total-amount" class="text-indigo-600">₹ <%= totalAmount %></span>
+      </div>
+
+      <button class="mt-8 w-full py-3 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-lg shadow-md transition">
+        Proceed to Checkout
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+<%- include('partials/footer') %>

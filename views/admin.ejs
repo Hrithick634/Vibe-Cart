@@ -1,0 +1,54 @@
+<%- include('partials/header') %>
+
+<!-- ✅ Success Message -->
+<% if (success.length > 0) { %>
+  <div class="fixed top-5 left-1/2 -translate-x-1/2 z-50 px-6 py-3 rounded-md bg-green-500 shadow-lg animate-bounce text-white font-medium">
+    <%= success %>
+  </div>
+<% } %>
+
+<!-- ✅ Main Content -->
+<div class="min-h-screen flex flex-col md:flex-row bg-gray-50 text-gray-800">
+
+  <!-- Sidebar -->
+  <aside class="w-full md:w-1/4 bg-white border-r border-gray-200 p-6 flex flex-col gap-3 sticky top-0">
+    <h2 class="text-2xl font-semibold mb-4 text-gray-700">Dashboard</h2>
+    <a href="#" class="text-gray-600 hover:text-indigo-600 transition font-medium">All Products</a>
+    <a href="#" class="text-gray-600 hover:text-indigo-600 transition font-medium">Create New Product</a>
+    <a href="#" class="text-gray-600 hover:text-indigo-600 transition font-medium">Profile</a>
+  </aside>
+
+  <!-- Products Section -->
+  <main class="w-full md:w-3/4 p-8">
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="text-3xl font-bold">All Products</h1>
+      <a href="#" class="text-red-500 hover:text-red-700 font-medium">Delete All</a>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <% for (let i = 0; i < 8; i++) { %>
+        <div class="bg-white rounded-2xl shadow hover:shadow-xl transition duration-300 overflow-hidden group">
+          <div class="relative">
+            <img src="/images/sample-bag.jpg" alt="Bag Image" class="h-48 w-full object-cover group-hover:scale-105 transition duration-500">
+            <button class="absolute top-3 right-3 bg-white p-2 rounded-full shadow hover:bg-indigo-100 transition">
+              <i class="ri-heart-line text-gray-700"></i>
+            </button>
+          </div>
+          <div class="p-4 flex justify-between items-center">
+            <div>
+              <h3 class="font-semibold text-gray-800">Clinge Bag</h3>
+              <h4 class="text-indigo-600 font-medium">₹1200</h4>
+            </div>
+            <a href="#" class="bg-indigo-600 hover:bg-indigo-700 text-white w-8 h-8 rounded-full flex items-center justify-center shadow">
+              <i class="ri-add-line"></i>
+            </a>
+          </div>
+        </div>
+      <% } %>
+    </div>
+  </main>
+
+</div>
+
+<%- include('partials/footer') %>

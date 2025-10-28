@@ -1,0 +1,78 @@
+<%- include('partials/header') %>
+
+<body class="bg-gradient-to-br from-blue-50 via-white to-indigo-50 text-gray-900 font-[Inter]">
+  <div class="min-h-screen flex items-center justify-center px-4 py-10">
+    
+    <!-- 🌈 Profile Card -->
+    <div class="bg-white/80 backdrop-blur-xl shadow-2xl rounded-2xl p-10 w-full max-w-2xl border border-gray-100">
+      <div class="flex flex-col items-center text-center">
+
+        <!-- 👤 Avatar -->
+        <div class="w-28 h-28 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-md">
+          <% if (user.fullname) { %>
+            <%= user.fullname.charAt(0).toUpperCase() %>  
+          <% } else { %>
+            ?
+          <% } %>
+        </div>
+
+        <!-- 🪪 User Info -->
+        <h1 class="text-3xl font-bold mt-6 text-gray-800 tracking-tight"><%= user.fullname %></h1>
+        <p class="text-gray-500 text-lg mb-8"><%= user.email %></p>
+
+        <!-- 🛒 Cart Details -->
+        <div class="w-full mb-6 text-left bg-gray-50 p-5 rounded-xl shadow-inner">
+          <h2 class="text-xl font-semibold text-gray-800 mb-3">👜 Cart Summary</h2>
+          <p class="text-gray-700 text-md mb-2"><strong>Items in Cart:</strong> <%= user.cart.length %></p>
+
+          <% if (user.cart.length > 0) { %>
+            <ul class="space-y-2">
+              <% user.cart.forEach(product => { %>
+                <li class="bg-white p-3 rounded-lg shadow flex justify-between items-center hover:shadow-md transition">
+                  <span class="font-medium text-gray-800"><%= product.name %></span>
+                  <span class="text-gray-600">₹ <%= product.price %></span>
+                </li>
+              <% }) %>
+            </ul>
+          <% } else { %>
+            <p class="text-gray-500 italic">No items in your cart yet.</p>
+          <% } %>
+        </div>
+
+        <!-- 📦 Orders Section -->
+        <div class="w-full mb-6 text-left bg-gray-50 p-5 rounded-xl shadow-inner">
+          <h2 class="text-xl font-semibold text-gray-800 mb-3">📦 Orders</h2>
+          <p class="text-gray-700 text-md mb-2"><strong>Total Orders:</strong> <%= user.orders.length %></p>
+
+          <% if (user.orders.length > 0) { %>
+            <ul class="space-y-2">
+              <% user.orders.forEach(order => { %>
+                <li class="bg-white p-3 rounded-lg shadow flex justify-between items-center hover:shadow-md transition">
+                  <span class="text-gray-700">Order ID:</span>
+                  <span class="font-semibold text-blue-600"><%= order._id %></span>
+                </li>
+              <% }) %>
+            </ul>
+          <% } else { %>
+            <p class="text-gray-500 italic">No orders placed yet.</p>
+          <% } %>
+        </div>
+
+        <!-- 📅 Account Info -->
+        <div class="bg-gray-50 p-4 rounded-xl w-full text-left shadow-inner mb-8">
+          <p class="text-gray-700"><strong>Account Created:</strong>
+            <%= user.createdAt ? new Date(user.createdAt).toDateString() : "N/A" %>
+          </p>
+        </div>
+
+        <!-- 🚪 Logout -->
+        <a href="/users/logout"
+          class="px-8 py-3 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-full text-lg font-medium shadow hover:opacity-90 transition-all">
+          Logout
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+
+<%- include('partials/footer') %>

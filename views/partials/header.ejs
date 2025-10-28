@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarryHub</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="font-['Poppins'] bg-gray-50">
+  <!-- Navbar -->
+  <nav class="w-full bg-white shadow-sm fixed top-0 left-0 z-50">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
+      
+      <!-- Logo -->
+      <a href="/" class="text-2xl font-bold tracking-tight text-blue-600 hover:text-blue-700 transition">
+        CarryHub
+      </a>
+
+      <!-- Desktop Menu -->
+      <% var loggedin = typeof loggedin !== "undefined" ? loggedin : true %>
+      <% if (loggedin) { %>
+        <div class="hidden md:flex items-center space-x-8 text-gray-700 font-medium">
+          <a href="/shop" class="hover:text-blue-600 transition">Shop</a>
+          <a href="/cart" class="hover:text-blue-600 transition relative">
+            Cart
+            <i class="ri-shopping-cart-2-line text-lg ml-1"></i>
+          </a>
+          <a href="/users/profile" class="hover:text-blue-600 transition">
+            My Account
+            <i class="ri-user-3-line ml-1"></i>
+          </a>
+          <a href="/owners/admin" class="hover:text-blue-600 transition">Create Product</a>
+          <a href="/users/logout" class="text-red-500 hover:text-red-600 transition flex items-center gap-1">
+            Logout <i class="ri-logout-box-line text-lg"></i>
+          </a>
+        </div>
+      <% } %>
+
+      <!-- Mobile Menu Button -->
+      <button id="menu-btn" class="md:hidden text-2xl text-gray-800 focus:outline-none">
+        <i class="ri-menu-line"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu Drawer -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black/40 hidden z-40">
+      <div class="absolute right-0 top-0 w-3/4 sm:w-1/2 h-full bg-white shadow-lg p-6 animate-slideIn">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-2xl font-bold text-blue-600">CarryHub</h3>
+          <button id="close-menu" class="text-2xl text-gray-700"><i class="ri-close-line"></i></button>
+        </div>
+
+        <% if (loggedin) { %>
+          <nav class="flex flex-col space-y-5 text-gray-700 text-lg font-medium">
+            <a href="/shop" class="hover:text-blue-600 transition">👜 Shop</a>
+            <a href="/cart" class="hover:text-blue-600 transition">🛒 Cart</a>
+            <a href="/users/profile" class="hover:text-blue-600 transition">👤 My Account</a>
+            <a href="/owners/admin" class="hover:text-blue-600 transition">⚙️ Create Product</a>
+            <a href="/users/logout" class="text-red-500 hover:text-red-600 transition">🚪 Logout</a>
+          </nav>
+        <% } else { %>
+          <nav class="flex flex-col space-y-5 text-gray-700 text-lg font-medium">
+            <a href="/login" class="hover:text-blue-600 transition">Login</a>
+            <a href="/register" class="hover:text-blue-600 transition">Register</a>
+          </nav>
+        <% } %>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Spacer so content doesn’t hide behind navbar -->
+  <div class="h-16"></div>
+
+  <!-- Mobile Drawer Animation -->
+  <style>
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    .animate-slideIn { animation: slideIn 0.3s ease forwards; }
+  </style>
+
+  <!-- Menu Script -->
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMenu = document.getElementById('close-menu');
+
+    menuBtn.addEventListener('click', () => mobileMenu.classList.remove('hidden'));
+    closeMenu.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    mobileMenu.addEventListener('click', e => {
+      if (e.target === mobileMenu) mobileMenu.classList.add('hidden');
+    });
+  </script>
+</body>
+</html>
